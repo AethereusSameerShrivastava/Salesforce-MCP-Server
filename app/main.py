@@ -29,12 +29,12 @@ if __name__ == "__main__":
 
     # Check for HTTP/SSE mode
     if "--http" in sys.argv or "--sse" in sys.argv:
-        logging.info("MCP starting (HTTP/SSE)")
+        logging.info("MCP starting (Streamable HTTP)")
         logging.info("Host: %s", config.http_host)
         logging.info("Port: %s", config.http_port)
         logging.info("API Key: %s", config.api_key[:8] + "..." if len(config.api_key) > 8 else "***")
         logging.info("Tools: %s", ", ".join(tool_registry.keys()) or "(none)")
-        mcp_server.run(transport="sse")
+        mcp_server.run(transport="streamable-http")
     elif "--mcp-stdio" in sys.argv:
         logging.info("MCP starting (stdio)")
         logging.info("Tools: %s", ", ".join(tool_registry.keys()) or "(none)")
