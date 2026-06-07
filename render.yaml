@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: salesforce-mcp-server
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m app.main --http
+    plan: starter
+    envVars:
+      # Disable browser-based OAuth (not possible on a server)
+      - key: SFMCP_OAUTH_DISABLED
+        value: "true"
+
+      # Server config
+      - key: SFMCP_LOG_LEVEL
+        value: INFO
+      - key: SFMCP_DEBUG_MODE
+        value: "false"
+      - key: SFMCP_MCP_SERVER_NAME
+        value: salesforce-mcp-server
+
+      # Salesforce API
+      - key: SFMCP_SALESFORCE_API_VERSION
+        value: "62.0"
+      - key: SFMCP_MAX_RETRIES
+        value: "3"
+      - key: SFMCP_REQUEST_TIMEOUT_SECONDS
+        value: "120"
+
+      # Secrets — set these manually in the Render dashboard
+      - key: APP_ENCRYPTION_KEY
+        sync: false
+      - key: APP_PASSWORD_ENC
+        sync: false
